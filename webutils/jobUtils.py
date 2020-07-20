@@ -30,10 +30,10 @@ class jobUtils():
             Items = self.driver.find_elements(By.XPATH,"""//td[@class="ms-vb-title"]/table/tbody/tr/td[1]/a""")
             for item in Items:
                 self.userlist.append(item.text)
-            print(self.userlist)
+            # print(self.userlist)
             return self.userlist
         except Exception as e:
-            print(e)
+            # print(e)
             raise RuntimeError(e,"get user list failed!")
 
     def get_productlist(self):
@@ -57,12 +57,12 @@ class jobUtils():
             items = self.driver.find_elements(By.XPATH,"""//*[@id="ctl00_m_g_a4f28019_4087_4e77_a1cc_6367e06d048b_ctl00_ctl04_ctl02_ctl00_ctl00_ctl04_ctl00_ctl00_QueryLookUpDropDown"]/option""")
             for item in items:
                 self.productList.append(item.text)
-            print(self.productList)
+            # print(self.productList)
             logger.info(self.productList)
             logger.info("获取产品成功")
             return self.productList
         except Exception as e:
-            print(e)
+            # print(e)
             logger.error(e)
             logger.error("获取产品失败")
             raise RuntimeError("Get Product list failed")
@@ -94,15 +94,16 @@ class jobUtils():
                 # print(table_td_list)
                 for td in table_td_list:
                     row_list.append(td.text)
-                print(row_list)
+                # print(row_list)
                 logger.info(row_list)
-                if row_list:
-                    self.row_table.append(row_list)
-                    logger.info(self.row_table)
+                yield row_list
+                # if row_list:
+                #     self.row_table.append(row_list)
+                    # logger.info(self.row_table)
             # return th_list,self.row_table
-            return  self.row_table
+            # return  self.row_table
         except Exception as e:
-            print(e)
+            # print(e)
             logger.error(e)
             logger.error("Get JobSheet Failed")
             raise RuntimeError("Get JobSheet Failed")
@@ -125,7 +126,7 @@ class jobUtils():
                                      """//td[@class="ms-vb-user"]//a[contains(text(),"%s IES")]/ancestor::td[@class="ms-vb-user"]/../td[@class="ms-vb-title"]//tbody/tr/td[1]/a""" % self.username).click()
         except Exception as e:
             logger.error("Get user failed")
-            print(e)
+            # print(e)
             raise ("Get user failed")
 
     def startwrite(self,job_list):
@@ -152,7 +153,7 @@ class jobUtils():
                 logger.info("Jobsheet product:%s date:%s time:8 wirte successful" %  (product,from_date))
                 return "Jobsheet product:%s date:%s time:8 wirte successful" %  (product,from_date)
             except Exception as e:
-                print(e)
+                # print(e)
                 logger.error("Jobsheet  product:%s data:%s time:8 wirte failed" % (product,from_date))
                 raise RuntimeError("Jobsheet  product:%s data:%s time:8 wirte failed" % (product,from_date))
 

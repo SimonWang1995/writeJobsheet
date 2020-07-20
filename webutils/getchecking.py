@@ -58,11 +58,12 @@ class getKqian():
                 for td in td_list:
                     td_row_list.append(td.text)
                 logger.info(td_row_list)
-                print(td_row_list)
-                self.table.append(td_row_list)
-                logger.info(self.table)
-            logger.info("获取考勤成功")
-            return self.table
+                # print(td_row_list)
+                yield td_row_list
+            #     self.table.append(td_row_list)
+            #     logger.info(self.table)
+            # logger.info("获取考勤成功")
+            # return self.table
         except Exception as e:
             logger.error(e)
             logger.error("获取考勤失败")
@@ -76,7 +77,7 @@ class getKqian():
             td_row_list = []
             for td in td_list:
                 td_row_list.append(td.text())
-            print(td_row_list)
+            # print(td_row_list)
             table.append(td_row_list)
 
 if __name__ == '__main__':

@@ -20,13 +20,16 @@ class MyTreeview(ttk.Treeview):
         self.scrollbar.config(command=self.yview)
 
     def treeview_sort_column(self, col, reverse):  # Treeview、列名、排列方式
-        l = [(self.set(k, col), k) for k in self.get_children('')]
-        print(self.get_children(''))
+        if col == "Date":
+            l = [(int(self.set(k, col).split('/')[2]), k) for k in self.get_children('')]
+        else:
+            l = [(self.set(k, col), k) for k in self.get_children('')]
+        # print(self.get_children(''))
         l.sort(reverse=reverse)  # 排序方式
         # rearrange items in sorted positions
         for index, (val, k) in enumerate(l):  # 根据排序后索引移动
             self.move(k, '', index)
-            print(k)
+            # print(k)
         self.heading(col, command=lambda: self.treeview_sort_column(col, not reverse))  # 重写标题，使之成为再点倒序的标题
 
     def inserttext(self,values):
@@ -114,7 +117,7 @@ class showInfo(Frame):
         self.creatpage()
 
     def creatpage(self):
-        print(self.dick_info)
+        # print(self.dick_info)
         for i,(key,value) in enumerate(self.dick_info.items()):
             Label(self,text ="%s:" % key.rjust(5),font=('楷体',12)).place(relx=0.2,rely=0.1+0.15*i,relwidth = 0.2,relheight=0.1)
             Label(self,text = "%s" % value.ljust(20),font=('楷体',12)).place(relx=0.4,rely=0.1+0.15*i,relwidth=0.4,relheight=0.1)
@@ -134,7 +137,6 @@ class inputdayPage(Frame):
     def initsubpage(self):
         if self.flag == 0:
             self.product_list = fg.get_productlist(self.root,self.jobsheet)
-
             self.date = StringVar()
             self.date.set(time.strftime("%Y/%m/%d", time.localtime(time.time())))
             self.hours = IntVar()
@@ -327,7 +329,7 @@ class inputkqPage(Frame):
                 self.treeview.delete(item)
                 self.treeview.update()
             except Exception as e:
-                print(e)
+                # print(e)
                 showinfo(message=e)
                 self.startbutton.config(bg="red", text="Stop")
         self.startbutton.config(bg="green", text="Start")
