@@ -115,16 +115,18 @@ class mainPage():
         self.write_kq.pack_forget()
         self.write_day.pack_forget()
         self.showinfo.pack_forget()
-        self.write_month.pack(expand=YES,fill=BOTH)
+        self.write_month.pack(expand=YES, fill=BOTH)
         self.write_month.initsubpage()
 
 
 if __name__ == '__main__':
     root = Tk()
+    root.title("JobSheet")
+    root.iconbitmap('jobsheet.ico')
     # driver = webdriver.Chrome()
     driver = webdriver.PhantomJS()
     try:
-        mainPage(root,driver)
+        mainPage(root, driver)
         root.mainloop()
     finally:
         driver.close()

@@ -1,7 +1,9 @@
 import time,datetime,os
 import logging
 
-log_dir = os.getcwd()
+log_dir = os.path.join(os.getcwd(), "logs")
+if not os.path.exists(log_dir):
+    os.makedirs(log_dir)
 logger =logging.getLogger()
 logger.setLevel(logging.DEBUG)
 Date = time.strftime('%Y%m%d%H%M%S', time.localtime(time.time()))

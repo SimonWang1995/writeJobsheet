@@ -4,7 +4,7 @@ import os,re
 import datetime,time
 
 
-def get_dates(ym="2020/03"):
+def get_dates(ym):
     worklist=[]
     year=int(ym.split('/')[0])
     month=int(ym.split('/')[1].lstrip("0"))

@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter import ttk
 from tkinter.messagebox import *
+import time
 from utils.date_parse import *
 from random import choice
 from utils.logsave import *
@@ -26,7 +27,7 @@ class MyTreeview(ttk.Treeview):
         for index, (val, k) in enumerate(l):  # 根据排序后索引移动
             self.move(k, '', index)
             print(k)
-        self.heading(col, command=lambda: self.treeview_sort_column(self, col, not reverse))  # 重写标题，使之成为再点倒序的标题
+        self.heading(col, command=lambda: self.treeview_sort_column(col, not reverse))  # 重写标题，使之成为再点倒序的标题
 
     def inserttext(self,values):
         for i,list in enumerate(values):
@@ -123,8 +124,8 @@ class inputdayPage(Frame):
     """
     按天填写的页面
     """
-    def __init__(self,master,jobsheet):
-        Frame.__init__(self,master)
+    def __init__(self, master, jobsheet):
+        Frame.__init__(self, master)
         self.root = master
         self.flag = 0
         self.jobsheet = jobsheet
@@ -135,7 +136,7 @@ class inputdayPage(Frame):
             self.product_list = fg.get_productlist(self.root,self.jobsheet)
 
             self.date = StringVar()
-            self.date.set("2019/03/24")
+            self.date.set(time.strftime("%Y/%m/%d", time.localtime(time.time())))
             self.hours = IntVar()
             self.hours.set(8)
 
@@ -209,6 +210,7 @@ class inputmonthPage(Frame):
         self.yearmonth=StringVar()
         Label(self.page1,text="填写年月:",font=("楷体",'12')).place(relx=0.2,rely=0.45,relwidth=0.2,relheight=0.1)
         Entry(self.page1,font=("楷体",'12'),textvariable=self.yearmonth).place(relx=0.4,rely=0.45,relwidth=0.2,relheight=0.1)
+        self.yearmonth.set(time.strftime("%Y/%m", time.localtime(time.time())))
         self.typebox = ttk.Combobox(self.page1,values=["随机","顺序"],state="readonly",font=("楷体",'12'))
         self.typebox.current(0)
         self.typebox.place(relx=0.65,rely=0.45,relwidth=0.1,relheight=0.1)
